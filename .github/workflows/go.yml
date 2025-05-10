@@ -1,32 +1,44 @@
-# This workflow will build a golang project
-name: Build, Test, and Deploy
+# name: Build, Test, and Deploy
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
 
-jobs:
-  build-test-deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-test-deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.21'
+#       - name: Set up Go
+#         uses: actions/setup-go@v4
+#         with:
+#           go-version: '1.21'
 
-      - name: Install dependencies
-        run: go mod tidy
+#       - name: Install dependencies
+#         run: go mod tidy
 
-      - name: Build
-        run: go build -v ./...
+#       - name: Build
+#         run: go build -v ./...
 
-      - name: Run tests
-        run: go test ./...
+#       - name: Run tests
+#         run: go test ./...
 
-      - name: Deploy Function
-        if: success()
-        run: ./gcptool deploy carbon_quest -e dev -v v1.0.0
+#       - name: Authenticate to Google Cloud
+#         uses: google-github-actions/auth@v2
+#         with:
+#           credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+#       - name: Set up gcloud CLI
+#         uses: google-github-actions/setup-gcloud@v2
+#         with:
+#           project_id: vibrant-period-459111-g9
+
+#       - name: Build gcptool
+#         run: go build -o gcptool .
+
+#       - name: Deploy Function using gcptool
+#         if: success()
+#         run: ./gcptool deploy carbon_quest -e dev -v v1.0.0
